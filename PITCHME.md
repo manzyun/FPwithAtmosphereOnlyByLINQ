@@ -11,7 +11,6 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 ### はじめに - ご容赦ください
 
 + *就業の**合間**クオリティ*です
-  + ソースコードの動作検証済
 + 関数型プログラミング とは という話はしません
   + ノリと雰囲気だけでやります
   + 圏論, モナドとかは触れません
@@ -90,15 +89,123 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
-### ラムダ式とデリゲート
+### ラムダ式
+
+乱暴に言ってしまうと、
+
+`\[f(x) = x\]`
+
+の違う書き方。
+
+`\[\lambda x.x\]`
+
+と書ける。
+
+---
+
+### もうちょっとラムダ式
+
+この例に挙げるラムダ式では、すでに演算子　「`*`」 に「乗算」の処理が割り当てられていることとして、
+
+`\[f(x) = x * x\]` → `\[\lambda x. x * x\]`
+
+`\[f(x, y) = x * y\]` → `\[\lambda xy.x * y\]`
+
+とも書けなくもない。
+
+---
+
+### 【Appendix】ラムダ式のもっと深い話は、
+
+ラムダ計算の深い話（簡約, チャーチ数, 不動点コンビネーター, その他、ラムダ式での計算機の実装）は、
+
+[ラムダ計算基礎文法最速マスター - 貳佰伍拾陸夜日記](https://tarao.hatenablog.com/entry/20100208/1265605429)に任せる。
+
+上記リンク先の文書の中身にお任せ。
+
+更にこれを体感するには、SchemeかLispか、LINQでやってみよう。
 
 ---
 
 ### .NETでのラムダ式
 
+```csharp
+int x => x;
+string s => Hello + "s";
+float fl => fl * fl
+
+var hoge => hoge.ToString();
+```
+
+みたいに書ける **デリゲート** です。
+
 ---
 
 ### 良さが伝わりにくいデリゲートの使い方
+
+非同期で関数やメソッド呼び出すときに使うやつ。
+
+```csharp
+public static class Program
+{
+    delegate void CallSay(string know_name);
+    
+    private void Main()
+    {
+        CallSay sayer = Say;  // 「Sayする何か」じゃなく「セイヤーッ！」
+        sayer("manzyun");
+    }
+    private void Say(string name)
+    {
+        Console.WriteLine("hello, {0} !", name);
+    }
+}
+```
+
+この実行結果、分かる方。
+
+---
+
+### 良さが伝わりにくいデリゲートの使い方
+
+ですが今回は「メソッド・関数の中でしか使わないメソッド・関数を定義」するために、
+
+```csharp
+public static class Program
+{
+    private void Main()
+    {
+        Func<int, int> pow = n => n * n;
+        Action<string> hello = delegate(string name, int seed)
+            {
+                Console.WriteLine("Hello, {0}. Your number is {1} !", name, pow(seed));
+            }
+        Console.WriteLine("Welcome new game");
+        hello("manzyun", 8);
+    }
+}
+```
+
+という風に使います。
+
+なお、このコードの実行結果は、以下みたいになるかと。
+
+```
+Welcome new game
+Hello, manzyun. Your number is 16 !
+```
+
+---
+
+### 【Appendix】デリゲートのもっと深い話
+
+というより「デリゲート」の部分を書いた時の参考資料は、
+
+[デリゲート - ++C++; //未確認飛行 C](https://ufcpp.net/study/csharp/sp_delegate.html)
+
+です。
+
+こちらにもっと詳しいことが書いてある。
 
 ---
 
