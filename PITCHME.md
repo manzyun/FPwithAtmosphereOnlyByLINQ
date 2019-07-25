@@ -215,7 +215,8 @@ Hello, manzyun. Your number is 16 !
 
 ```csharp
 // 3の倍数のものを抽出し、それらを更にそれぞれ2乗したものを代入
-IEnumerable<int> pow_only_3 = Enumerable.Range(0, 10).Where( x => x % 3 == 0 ).Select( x => x * x );
+IEnumerable<int> pow_only_3 = Enumerable.Range(0, 10)
+                              .Where( x => x % 3 == 0 ).Select( x => x * x );
 ```
 
 ---
@@ -266,7 +267,9 @@ LISPという言語が「複数の文字からなる一つの変数」という�
   + Functional Reactive Programmingで、GUIプログラミングでも応用可能
 + LINQの知識がPowerShellにも活かせる？
   + PowerShell編に続く……
-  
+
+
+
 ### Thank's for listening
 
 + このスライドは[Git Pitch](https://gitpitch.com/)で作成しました。
