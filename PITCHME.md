@@ -190,7 +190,7 @@ public static class Program
 
 なお、このコードの実行結果は、以下みたいになるかと。
 
-```
+```shell-session
 Welcome new game
 Hello, manzyun. Your number is 16 !
 ```
@@ -216,7 +216,8 @@ Hello, manzyun. Your number is 16 !
 ```csharp
 // 3の倍数のものを抽出し、それらを更にそれぞれ2乗したものを代入
 IEnumerable<int> pow_only_3 = Enumerable.Range(0, 10)
-                              .Where( x => x % 3 == 0 ).Select( x => x * x );
+                              .Where( x => x % 3 == 0 )
+                              .Select( x => x * x );
 ```
 
 ---
@@ -255,6 +256,34 @@ LISPという言語が「複数の文字からなる一つの変数」という�
 
 ソース: 
 [The Idea of Lisp](https://dev.to/ericnormand/the-idea-of-lisp)
+
+---
+
+### LINQ、どんな時に使うの？
+
+気軽に `List` や `Dictionary` や `Set` で使えばいいと思うよ。
+
+---
+
+### 使用例1
+
+Listに格納されているそれぞれのデータに対して変更を行いたい。
+
+`Select` を使います。
+
+```csharp
+// 0から始まる100個のそれぞれの値に2を乗算する。
+Enumerable.Range(0, 100)
+          .Select( x => x * 2 );
+
+// 5から始まる100個のそれぞれの値を、テキストフォーマットで出力する。
+Enumerable.Range(5, 100)
+          .Select( (x, i) =>
+              Console.WriteLine(
+                  "index: {0}, value:{1}", i, x
+              )
+          );
+```
 
 ---
 
