@@ -209,13 +209,51 @@ Hello, manzyun. Your number is 16 !
 
 ---
 
-### LINQ実践例
+### LINQでデリゲートやラムダ式をどう使うか
 
-+ Select
-+ Where -> Select
-+ 思いついたもの色々
+ふつーにこう使います。
+
+```csharp
+// 3の倍数のものを抽出し、それらを更にそれぞれ2乗したものを代入
+IEnumerable<int> pow_only_3 = Enumerable.Range(0, 10).Where( x => x % 3 == 0 ).Select( x => x * x );
+```
 
 ---
+
+### 「え、`x` に入る値って、どこからくるの？」
+
+```csharp
+// 便宜上先ほどの続き
+pow_only_3.Select( x => x / 3 );
+```
+
+乱暴に言うと、  
+「 `pow_only_3` のそれぞれの要素がひとつずつ入る」
+
+やってることはforeachとほぼ同じ。
+
+---
+
+### 補足「ラムダ式の変数は一文字じゃなければだめなのか？」
+
+そんなことないよ！
+
+```csharp
+// 便宜上先ほどのソースの書き換え
+pow_only_3.Select( shan => shan / 3 );
+pow_only_3.Select( int shan => shan / 3);
+```
+どちらもOK。
+
+---
+
+### 【Appendix】変数名について
+
+LISPという言語が「複数の文字からなる一つの変数」というアイディアをだすまでは、
+プログラミングにおいても「一つの変数は一つの文字で表す」のが通例だったそうです。
+
+ソース: 
+[The Idea of Lisp](https://dev.to/ericnormand/the-idea-of-lisp)
 
 ---
 
@@ -225,6 +263,7 @@ Hello, manzyun. Your number is 16 !
   + 2008年から導入されているこの機能を使わずに、いつ使うの？
 + 「関数型パラダイムとかなんだよ！？　俺はオブジェクト指向で忙しい！」
   + LINQで雰囲気はつかめるぞ。
+  + Functional Reactive Programmingで、GUIプログラミングでも応用可能
 + LINQの知識がPowerShellにも活かせる？
   + PowerShell編に続く……
   
