@@ -121,8 +121,6 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 [ラムダ計算基礎文法最速マスター - 貳佰伍拾陸夜日記](https://tarao.hatenablog.com/entry/20100208/1265605429)に任せる。
 
-上記リンク先の文書の中身にお任せ。
-
 更にこれを体感するには、SchemeかLispか、LINQでやってみよう。
 
 ---
@@ -187,6 +185,8 @@ public static class Program
 ```
 
 という風に使います。
+
+
 
 なお、このコードの実行結果は、以下みたいになるかと。
 
