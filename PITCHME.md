@@ -365,13 +365,14 @@ Enumerable.Range(1, 101).Sum()
 
 詳しくは [C# の統合言語クエリ - Microsoft](https://docs.microsoft.com/ja-jp/dotnet/csharp/linq/)を参照。
 
+なお、VB.netでも使えるので、ご安心ください。
+
 ---
 
 ### ここまでのまとめ
 
 + `x => ` は、リストの中の一つのデータに対する関数を書いてあげる。
 + LINQの引数（関数）の中を手続き型にしか書けそうにないなら、デリゲートを使ってしまうのも手
-+ `Func<>` は計算結果が返ってくるもの。 `Action<>` は計算結果が返ってこないものに。
 
 ---
 
@@ -393,12 +394,71 @@ Enumerable.Range(1, 101).Sum()
 // dbpath は事前にDBファイルのパスを入れているものとする
 AwesomeGoods db = new AwesomeGoods(dbpath);
 
-List<Goods> near_empty_goods =
+IQueryable<Goods> near_empty_goods =
     db.stock.Where( goods => goods.Id.IndexOf("0E-") > 0 )
-            .Where( e => e.stock < 5 ).ToList()
+            .Where( e => e.stock < 5 )
 ```
 
 参考資料: [LINQ to SQL - Microsoft](https://docs.microsoft.com/ja-jp/dotnet/framework/data/adonet/sql/linq/)
+
+---
+
+### 具体例2「オープンデータのXMLファイルの集計」
+
+ある技術者試験の合格情報について、XML形式で公開されている。
+
+XMLのデータ（`/Examinees` 要素をルートとし、複数の `Examinee` 要素を持つ)から、
+2019年9月 （`Examinee/Date`）に、
+ネットワーク技術者試験(`Examinee/Subject` の値が `Network` )に
+合格した(`Examinee/Clear` の値が `OK` )ものを抽出し、その合計を求めよ。
+
+---
+
+### 具体例2「オープンデータのXMLファイルの集計」
+
+LINQ to XMLでは、XPathも使うと、とても便利。
+
+```csharp
+using System.Xml.Linq;
+using System.Xml.XPath;
+
+/* ...中略... */
+
+XDocument examinees = XDocument.Load(@"path/to/the/directory/2019.xml);
+
+int passed_examinees_count =
+    examinees.XPathSelectElements("/Examinees/Examinee")
+    .Where( examinee => examinee.Date == "2019-09" )
+    .Where( examinee => examinee.Subject == "Network" )
+    .Where( examinee => examinee.Clear == "OK" )
+    .Count()
+```
+
+実務でLINQ to XMLを使いましたが、うろ覚え……。
+
+参考資料:[LINQ To XML とXPathを利用したXMLドキュメント検索 (C#プログラミング) - iPentec](https://www.ipentec.com/document/csharp-linq-to-xml-and-xpath-xml-retrieve)
+
+---
+
+### 【Appendix】Functional Reactive Programmingもやってみる。
+
+[Reactive Extension](https://github.com/dotnet/reactive)というライブラリを使います。
+
+Unity Game EngineやGUIプログラミングで大活躍のはず。
+イベントやストリームデータに対してLINQが使えます。
+
+```csharp
+/* ...前略 */
+
+// 0から始まるそれぞれ1つの値を持つ10個のイベントから、偶数のイベントだけ取り出して、ダイアログ出力。
+Observable.Range(0, 10).Where( x => x % 2 == 0 )
+                       .Subscribe(MessageBox.Show("偶数キター（°∀°）－！"));
+
+// 最初から5番目以降のイベント以降からダイアログを出力。
+Observable.Range(0, 10).Take(5).Subscribe(MessageBox.Show("おくれてじゃじゃじゃじゃーん");
+```
+
+参考資料: [5000兆年ぶりにReactive Extensions再入門 - こっちみないで(´・ω・｀)](http://kmycode.hatenablog.jp/entry/2017/09/30/181312)
 
 ---
 
@@ -408,8 +468,8 @@ List<Goods> near_empty_goods =
   + 2008年から導入されているこの機能を使わずに、いつ使うの？
 + 「関数型パラダイムとかなんだよ！？　俺はオブジェクト指向で忙しい！」
   + LINQで雰囲気はつかめるぞ。
-  + Functional Reactive Programmingで、GUIプログラミングでも応用可能
-+ LINQの知識がPowerShellにも活かせる？
+  + Reactive Extensionで、GUIプログラミングでも応用可能
++ LINQの感覚がPowerShellにも活かせる？
   + PowerShell編に続く……
 
 ---
