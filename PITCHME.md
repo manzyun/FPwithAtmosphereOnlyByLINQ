@@ -378,8 +378,7 @@ Enumerable.Range(1, 101).Sum()
 
 ### 具体例1 「在庫管理システム」
 
-商品の集合（ `HashSet` ）に対して、
-「商品IDが `0E-` から始まる商品で、商品在庫が5未満のものを取得する」
+商品IDが `0E-` から始まる商品で、商品在庫が5未満のものを取得する。
 
 なお、商品のデータは何らかのRDBMSに格納されているものとする。
 
@@ -424,7 +423,7 @@ using System.Xml.XPath;
 
 /* ...中略... */
 
-XDocument examinees = XDocument.Load(@"path/to/the/directory/2019.xml);
+XDocument examinees = XDocument.Load(@"path/to/the/directory/2019.xml");
 
 int passed_examinees_count =
     examinees.XPathSelectElements("/Examinees/Examinee")
@@ -455,7 +454,8 @@ Observable.Range(0, 10).Where( x => x % 2 == 0 )
                        .Subscribe(MessageBox.Show("偶数キター（°∀°）－！"));
 
 // 最初から5番目以降のイベント以降からダイアログを出力。
-Observable.Range(0, 10).Take(5).Subscribe(MessageBox.Show("おくれてじゃじゃじゃじゃーん");
+Observable.Range(0, 10).Take(5)
+                       .Subscribe(MessageBox.Show("おくれてじゃじゃじゃじゃーん");
 ```
 
 参考資料: [5000兆年ぶりにReactive Extensions再入門 - こっちみないで(´・ω・｀)](http://kmycode.hatenablog.jp/entry/2017/09/30/181312)
