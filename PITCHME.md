@@ -261,7 +261,7 @@ LISPという言語が「複数の文字からなる一つの変数」という�
 
 ### LINQ、どんな時に使うの？
 
-気軽に `List` や `Dictionary` や `Set` で使えばいいと思うよ。
+気軽に `List` や `Dictionary` や `HashSet` で使えばいいと思うよ。
 
 ---
 
@@ -375,7 +375,30 @@ Enumerable.Range(1, 101).Sum()
 
 ---
 
-### 具体例
+### 具体例1 「在庫管理システム」
+
+商品の集合（ `HashSet` ）に対して、
+「商品IDが `0E-` から始まる商品で、商品在庫が5未満のものを取得する」
+
+なお、商品のデータは何らかのRDBMSに格納されているものとする。
+
+---
+
+### 具体例1 「在庫管理システム」
+
+こんな感じでしょうか？
+（使ったことがないのですが、LINQ to SQLを想像で使ってみました）
+
+```csharp
+// dbpath は事前にDBファイルのパスを入れているものとする
+AwesomeGoods db = new AwesomeGoods(dbpath);
+
+List<Goods> near_empty_goods =
+    db.stock.Where( goods => goods.Id.IndexOf("0E-") > 0 )
+            .Where( e => e.stock < 5 ).ToList()
+```
+
+参考資料: [LINQ to SQL - Microsoft](https://docs.microsoft.com/ja-jp/dotnet/framework/data/adonet/sql/linq/)
 
 ---
 
