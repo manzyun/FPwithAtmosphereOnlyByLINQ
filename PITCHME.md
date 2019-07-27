@@ -1,4 +1,4 @@
-### LINQでなんちゃって関数型プログラミングやってみるか
+# LINQでなんちゃって関数型プログラミングやってみるか
 
 2019-07-26
 
@@ -8,7 +8,7 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
-### はじめに - ご容赦ください
+## はじめに - ご容赦ください
 
 + *就業の**合間**クオリティ*です
 + 関数型プログラミング とは という話はしません
@@ -30,7 +30,7 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
-### LINQ知ってます？
+## LINQ知ってます？
 
 よろしければ挙手お願いします。
 
@@ -54,7 +54,7 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
-### What's LINQ
+## What's LINQ
 
 + Language INtegrated Query
   + 統合言語クエリ
@@ -89,7 +89,7 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
-### ラムダ式
+## ラムダ式
 
 乱暴に言ってしまうと、
 
@@ -125,7 +125,7 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
-### .NETでのラムダ式
+## .NETでのラムダ式
 
 ```csharp
 int x => x;
@@ -139,7 +139,7 @@ var hoge => hoge.ToString();
 
 ---
 
-### 良さが伝わりにくいデリゲートの使い方
+## 良さが伝わりにくいデリゲートの使い方
 
 非同期で関数やメソッド呼び出すときに使うやつ。
 
